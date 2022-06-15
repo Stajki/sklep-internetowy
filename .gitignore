@@ -1,0 +1,7 @@
+/public/storage
+/vendor
+.env
+.env.backup
+/.idea
+/.vscode
+/docker/config/mariadb

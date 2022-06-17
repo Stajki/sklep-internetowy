@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div id="app">
@@ -31,18 +33,20 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    @if (\App\Helpers::checkUserType('USER'))
+                    @if (\App\Helpers\UserHelper::checkUserType('USER'))
                         <ul class="navbar-nav me-auto">
-                            PRODUCTS
-                        </ul>
-                        <ul class="navbar-nav me-auto">
-                            CART
+                            <a href="/products" style="text-decoration: none; color: #00000063;">PRODUCTS</a>
                         </ul>
                     @endif
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                        @if (\App\Helpers\UserHelper::checkUserType('USER'))
+                        <a href="/cart" class="cart position-relative d-inline-flex" aria-label="View your shopping cart" style="text-decoration: none; color: #00000063; margin-top: 6px;">
+                            <i style="font-size:24px" class="fa fa-shopping-cart"></i>
+                        </a>
+                        @endif
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">

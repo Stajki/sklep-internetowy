@@ -29,7 +29,7 @@
                             <label for="account_type" class="col-md-4 col-form-label text-md-end">{{ __('Account type') }}</label>
 
                             <div class="col-md-6">
-                                <select id="account_type" name="account_type">
+                                <select id="account_type" name="account_type" class="form-select form-select-md mb-3">
                                     <option>USER</option>
                                     <option>ADMIN</option>
                                 </select>

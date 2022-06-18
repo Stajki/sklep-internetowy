@@ -19,6 +19,7 @@ class ProductController extends Controller
             $query = $request->get('query');
             $builder->whereRaw('lower(name) like (?)' ,["%{str_replace(' ', '_', $query)}%"])->get();
         }
+
         $cart = session()->get('cart');
         if ($cart == null) {
             $cart = [];

@@ -1,7 +1,4 @@
 @extends('layouts.app')
-<head>
-<link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
-</head>
 @section('content')
 <body class="">
     <div class="flex items-center justify-center w-full mt-12">
@@ -12,10 +9,10 @@
                         <div class="d-flex justify-content-center container mt-5">
                             <div class="card p-3 bg-white">
                                 <div class="about-product text-center mt-2">
-                                    @if($file = $product->image)
-                                        <img src="{{ asset('storage/' .  $file->file_name) }}" width="300">
+                                    @if ($file = $product->image)
+                                        <img src="{{ asset('storage/' .  $file->file_name) }}" width="300" style="max-width: 100%">
                                     @else
-                                        <img src="{{ asset('storage/default_image.png') }}" width="300">
+                                        <img src="{{ asset('storage/default_image.png') }}" width="300" style="max-width: 100%">
                                     @endif
                                     <p></p>
                                     <div>
@@ -28,9 +25,9 @@
                                     <div class="d-flex justify-content-between p-price"><span>Price gross</span><span>{{number_format(($product->price_gross->getAmount()) / 100, 2, '.', ' ')}} {{$product->price_gross->getCurrency()}}</span></div>
                                 </div>
                                 <div class="d-flex justify-content-between total font-weight-bold mt-4">
-                                    <input type="number" id="quantity" name="quantity" value="{{ request('count') ?? 0 }}" min="1" max="{{ $product->available_stock }}">
-                                    <button class="add-to-cart" type="button" class="btn btn-sm btn-outline-secondary"
-                                        data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $product->price_nett->getAmount() / 100 }}">Add to Cart
+                                    <input type="number" id="quantity_{{ $product->id }}" name="quantity" value="{{ session()->get('cart')[$product->id]['quantity'] ?? 0 }}" min="0" max="{{ $product->available_stock }}">
+                                    <button type="button" id="add-to-cart" class="btn btn-sm btn-outline-secondary" onclick="addProduct(this)" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price_nett="{{ $product->price_nett->getAmount() / 100 }}" data-price_gross="{{ $product->price_gross->getAmount() / 100 }}">
+                                        Add to Cart
                                     </button>
                                 </div>
                             </div>
@@ -47,3 +44,21 @@
 </body>
 </html>
 @endsection
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+    jQuery(document).ready(function() {
+        window.addProduct = function(event){
+            var productId = event.dataset.id;
+            jQuery.ajax('/cart/product/' + productId, {
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "quantity": jQuery('#quantity_' + productId).val()
+                },
+                success: function (data, status, xhr) {
+                    jQuery('#items-in-cart').html(data['total_quantity']);
+                }
+            });
+        }
+    })
+</script>

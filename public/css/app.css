@@ -10271,10 +10271,21 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.product-container {
-  border-color: red;
-  border: 1px solid black;
+.badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
 }
-body {
-  background-color: red;
+.label-warning[href],
+.badge-warning[href] {
+    background-color: #c67605;
+}
+#items-in-cart {
+    font-size: 12px;
+    background-color: #ff0000;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -10px;
 }

@@ -28,4 +28,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
+
+    Route::post('/cart/product/{productId}', [App\Http\Controllers\CartController::class, 'update'])
+        ->where('productId', '[0-9]+');
+    Route::get('/cart', [App\Http\Controllers\CartController::class, 'show']);
+
+    Route::post('/order', [App\Http\Controllers\OrderController::class, 'store']);
 });

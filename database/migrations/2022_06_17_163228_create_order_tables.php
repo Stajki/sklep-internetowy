@@ -18,6 +18,7 @@ class CreateOrderTables extends Migration
             $table->timestamps();
 
             $table->unsignedBigInteger('user_id');
+            $table->string('order_number');
             $table->json('total_price_nett');
             $table->json('total_price_gross');
 

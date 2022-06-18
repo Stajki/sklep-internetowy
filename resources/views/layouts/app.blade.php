@@ -45,6 +45,7 @@
                         @if (\App\Helpers\UserHelper::checkUserType('USER'))
                         <a href="/cart" class="cart position-relative d-inline-flex" aria-label="View your shopping cart" style="text-decoration: none; color: #00000063; margin-top: 6px;">
                             <i style="font-size:24px" class="fa fa-shopping-cart"></i>
+                            <span class='badge badge-warning' id='items-in-cart' style="height: 13px;">{{ session()->get('total_quantity') ?? 0 }}</span>
                         </a>
                         @endif
                         @guest

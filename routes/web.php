@@ -34,4 +34,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'show']);
 
     Route::post('/order', [App\Http\Controllers\OrderController::class, 'store']);
+    Route::get('/order', [App\Http\Controllers\OrderController::class, 'index']);
+    Route::get('/order/{orderId}', [App\Http\Controllers\OrderController::class, 'show'])
+        ->where('orderId', '[0-9]+');
 });

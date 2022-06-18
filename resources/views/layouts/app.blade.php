@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/snackbar.js') }}" defer></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/snackbar.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -34,8 +37,26 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     @if (\App\Helpers\UserHelper::checkUserType('USER'))
-                        <ul class="navbar-nav me-auto">
+                        <ul class="navbar-nav me-1 mb-1">
                             <a href="/products" style="text-decoration: none; color: #00000063;">PRODUCTS</a>
+                        </ul>
+                        <ul class="navbar-nav me-1 mb-1">
+                            |
+                        </ul>
+                        <ul class="navbar-nav me-1 mb-1">
+                            <a href="/order" style="text-decoration: none; color: #00000063;">ORDERS</a>
+                        </ul>
+                    @endif
+
+                    @if (\App\Helpers\UserHelper::checkUserType('ADMIN'))
+                        <ul class="navbar-nav me-1 mb-1">
+                            <a href="/products" style="text-decoration: none; color: #00000063;">PRODUCTS</a>
+                        </ul>
+                        <ul class="navbar-nav me-1 mb-1">
+                            |
+                        </ul>
+                        <ul class="navbar-nav me-1 mb-1">
+                            <a href="/users" style="text-decoration: none; color: #00000063;">USERS</a>
                         </ul>
                     @endif
 

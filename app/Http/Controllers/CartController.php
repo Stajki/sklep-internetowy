@@ -16,9 +16,8 @@ class CartController extends Controller
     public function update(Request $request, int $productId)
     {
         $product = Product::findOrFail($productId);
-        $totalQuantity = 0;
         $quantity = $request->post('quantity');
-        if ($quantity > $product->available_stock) {
+        if ($quantity > $product->available_stock || $quantity < 0) {
             throw new BadRequestException('Unavailable stock.');
         }
 
@@ -40,6 +39,7 @@ class CartController extends Controller
 
         return response()->json([
             'total_quantity' => $totalQuantity,
+            'message' => 'Success',
         ]);
     }
 

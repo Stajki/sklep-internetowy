@@ -2,32 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\AccountTypes;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $this->validate($request, [
-            'query' => ['string'],
-            'limit' => ['integer'],
-        ]);
-
+        $user = User::findCurrent();
         $builder = Product::query();
         if ($request->filled('query')) {
             $query = $request->get('query');
-            $builder->whereRaw('lower(name) like (?)' ,["%{str_replace(' ', '_', $query)}%"])->get();
+            $builder->whereRaw('lower(name) like (?)', ['%' . str_replace(' ', '_', $query) . '%']);
         }
 
-        $cart = session()->get('cart');
-        if ($cart == null) {
-            $cart = [];
+        if ($user->account_type == AccountTypes::USER) {
+            return view('product.index', [
+                'products' => $builder->get(),
+            ]);
         }
 
-        return view('product.index', [
-            'products' => $builder->get(),
-            'cart' => $cart,
+        return view('product.admin.index', [
+            'products' => $builder->withTrashed()->get(),
         ]);
     }
 }

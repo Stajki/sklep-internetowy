@@ -16,22 +16,25 @@
         <div class="flex grid lg:grid-cols-2 gap-20 mx-auto">
             @foreach($products as $key => $product)
                 <div class="row align-items-lg-center p-3 shadow align-content-center" style="max-width: 600px; margin: auto">
-                    <div class="col-md-3 align">
+                    <div class="col-md-3 col-sm-3 align">
                         @if ($file = $product->getProduct()->image)
                             <img src="{{ asset('storage/' .  $file->file_name) }}" width="100" style="max-width: 100%">
                         @else
                             <img src="{{ asset('storage/default_image.png') }}" width="100" style="max-width: 100%">
                         @endif
                     </div>
-                    <div class="col-md-3 text-center">
-                        <label><h5>Quantity: {{ $product->getQuantity() }}</h5></label>
+                    <div class="col-md-3 col-sm-4 text-center">
+                        <h4>
+                            {{ $product->getProduct()->name }}
+                        </h4>
+                        <label class="text-secondary">Quantity: {{ $product->getQuantity() }}</label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-4">
                         <h5>
-                            {{number_format((($product->getPriceGross()->getAmount()) / 100) * $product->getQuantity(), 2, '.', ' ')}} {{$product->getPriceGross()->getCurrency()}}
+                            {{ number_format((($product->getPriceGross()->getAmount()) / 100) * $product->getQuantity(), 2, '.', ' ') }} {{ $product->getPriceGross()->getCurrency() }}
                         </h5>
                     </div>
-                    <div class="col-md-3 text-center">
+                    <div class="col-md-3 col-sm-1 text-center">
                         <button onclick="removeProduct({{ $product->getProduct()->id }})">
                             <i style="font-size:24px" class="fa fa-trash"></i>
                         </button>

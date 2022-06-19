@@ -36,26 +36,20 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    @if (\App\Helpers\UserHelper::checkUserType('USER'))
-                        <ul class="navbar-nav me-1 mb-1">
+                    @if (\App\Helpers\UserHelper::checkUserType(\App\Constants\AccountTypes::USER))
+                        <ul class="navbar-nav me-1 mb-1 p-1">
                             <a href="/products" style="text-decoration: none; color: #00000063;">PRODUCTS</a>
                         </ul>
-                        <ul class="navbar-nav me-1 mb-1">
-                            |
-                        </ul>
-                        <ul class="navbar-nav me-1 mb-1">
+                        <ul class="navbar-nav me-1 mb-1 p-1">
                             <a href="/order" style="text-decoration: none; color: #00000063;">ORDERS</a>
                         </ul>
                     @endif
 
-                    @if (\App\Helpers\UserHelper::checkUserType('ADMIN'))
-                        <ul class="navbar-nav me-1 mb-1">
+                    @if (\App\Helpers\UserHelper::checkUserType([\App\Constants\AccountTypes::ADMIN, \App\Constants\AccountTypes::SUPER_ADMIN]))
+                        <ul class="navbar-nav me-1 mb-1 m-1 p-1">
                             <a href="/products" style="text-decoration: none; color: #00000063;">PRODUCTS</a>
                         </ul>
-                        <ul class="navbar-nav me-1 mb-1">
-                            |
-                        </ul>
-                        <ul class="navbar-nav me-1 mb-1">
+                        <ul class="navbar-nav me-1 mb-1 m-1 p-1">
                             <a href="/users" style="text-decoration: none; color: #00000063;">USERS</a>
                         </ul>
                     @endif
@@ -88,10 +82,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/users/edit">
+                                        Edit
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        Logout
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

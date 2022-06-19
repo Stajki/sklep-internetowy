@@ -32,20 +32,3 @@
 </body>
 </html>
 @endsection
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script>
-    jQuery(document).ready(function () {
-        window.removeProduct = function (id) {
-            jQuery.ajax('/cart/product/' + id, {
-                type: 'POST',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "quantity": 0,
-                },
-                success: function (data, status, xhr) {
-                    location.reload();
-                }
-            });
-        }
-    })
-</script>

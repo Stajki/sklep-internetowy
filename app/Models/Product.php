@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Casts\Money;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -21,4 +22,9 @@ class Product extends Model
         'price_nett',
         'price_gross',
     ];
+
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(File::class, 'default_image_id');
+    }
 }

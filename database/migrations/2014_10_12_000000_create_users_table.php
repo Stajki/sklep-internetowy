@@ -17,13 +17,15 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+
+            $table->softDeletes();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('account_type');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
         });
 
         // create SUPER ADMIN
@@ -32,7 +34,7 @@ class CreateUsersTable extends Migration
             'email' => 'superadmin@gmail.com',
             'password' => '$2y$10$zM9EdwYKRimY6xzJ7ph6d.h46kOfXtNlyTx/StBdUUasjeF2quDUa', //haslo123
             'account_type' => AccountTypes::SUPER_ADMIN,
-        ]);        
+        ]);
     }
 
     /**

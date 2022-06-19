@@ -8,7 +8,8 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    Welcome in {{ config('app.name') }}!
+                    <p>Welcome in {{ config('app.name') }}!</p>
+                    <p>You're logged as {{ \App\Models\User::findCurrent()->account_type }}!</p>
                 </div>
             </div>
         </div>

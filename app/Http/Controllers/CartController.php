@@ -67,7 +67,7 @@ class CartController extends Controller
         }
 
         foreach ($cart as $key => $product) {
-            $productModel = Product::findOrFail($key);
+            $productModel = Product::withTrashed()->findOrFail($key);
 
             $products->push(new CartProduct(
                 $productModel,

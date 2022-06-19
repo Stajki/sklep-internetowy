@@ -45,7 +45,7 @@ class OrderController extends Controller
                 'price_gross' =>  new Money($product['price_gross'] * 100, new Currency('PLN')),
                 'quantity' => $product['quantity'],
             ]);
-            $productModel = Product::findOrFail($key);
+            $productModel = Product::withTrashed()->findOrFail($key);
             $item->order()->associate($order);
             $item->product()->associate($productModel);
             $item->save();
